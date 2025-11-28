@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:20-alpine
 
 WORKDIR /app
 
@@ -10,11 +10,7 @@ COPY . .
 # Собираем приложение
 RUN npm run build
 
-FROM nginx:alpine
-
-COPY --from=builder /app/dist /usr/share/nginx/html
-
 EXPOSE 5173
 
 # Запускаем
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "5173"]

@@ -14,7 +14,7 @@ function App() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/save', {
+            const response = await fetch('http://localhost:8000/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ function App() {
 
     const fetchLastData = async () => {
         try {
-            const response = await fetch('http://localhost:3000/data');
+            const response = await fetch('http://localhost:8000/data');
 
             if (response.ok) {
                 const data = await response.json();

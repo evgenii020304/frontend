@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import { useState } from 'react';
 
@@ -14,7 +15,7 @@ function App() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/save', {
+            const response = await fetch('http://localhost:8000/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,7 +24,8 @@ function App() {
             });
 
             if (response.ok) {
-                alert('Данные успешно отправлены на сервер!');
+                const result = await response.json();
+                alert(`Данные успешно отправлены! Время: ${result.timestamp}`);
                 setInputValue('');
             } else {
                 alert('Ошибка при отправке данных');
@@ -36,7 +38,7 @@ function App() {
 
     const fetchLastData = async () => {
         try {
-            const response = await fetch('http://localhost:3000/data');
+            const response = await fetch('http://localhost:8000/data');
 
             if (response.ok) {
                 const data = await response.json();
@@ -46,7 +48,7 @@ function App() {
             }
         } catch (error) {
             console.error('Ошибка:', error);
-            alert('Не удалось подключиться к серверу. Убедитесь, что бэкенд запущен.');
+            setOutputValue('Не удалось подключиться к серверу');
         }
     };
 
